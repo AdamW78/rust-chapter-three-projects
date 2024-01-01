@@ -22,7 +22,6 @@ impl fmt::Display for TC {
 const TS: [Temp; 9] = [Temp{temp: 300.0, tc: TC::K}, Temp{temp: 0.0, tc: TC::C}, Temp{temp: 50.0, tc: TC::C},
                     Temp{temp: 100.0, tc: TC::C}, Temp{temp: -40.0, tc: TC::C}, Temp{temp: 32.0, tc: TC::F},
                     Temp{temp: 212.0, tc: TC::F}, Temp{temp: 72.0, tc: TC::F}, Temp{temp: -40.0, tc: TC::F}];
-
 fn conv_temp(t: &Temp) -> Temp {
     let temp: f32;
     let tc: TC;
@@ -58,6 +57,32 @@ fn gen_nth_fibonacci(n: u8) -> i128 {
 
 }
 
+fn print_12_days_of_christmas() {
+    println!();
+    let gifts = ["a partridge in a pear tree!", "Two turtle doves", "Three french hens", "Four calling birds",
+    "Five golden rings!", "Six geese-a-layin'", "Seven swans-a-swimmin'", "Eight maids-a-milkin'", "Nine ladies dancin'",
+    "Ten lords-a-leapin'", "Eleven pipers pipin'", "Twelve drummers drummin'"];
+    let order_strs = ["first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth",
+    "tenth", "eleventh", "twelfth"];
+    for day_num in 0..=11 {
+        println!("On the {} day of Christmas,", order_strs[day_num]);
+        println!("My true love sent to me:");
+        let mut gift_num:i8 = day_num as i8;
+        while gift_num >= 0 {
+            let mut str_pr = format!("{},", gifts[gift_num as usize]);
+            if gift_num == 4 || gift_num == 0 {
+                str_pr = str_pr.trim_matches(',').parse().unwrap();
+                if gift_num == 0 && day_num != 0 {
+                    str_pr = format!("And {}", str_pr);
+                }
+            }
+            println!("{}", str_pr);
+            gift_num -= 1;
+        }
+        println!();
+    }
+}
+
 fn main() {
     for t in TS {
         let c = conv_temp(&t);
@@ -66,4 +91,5 @@ fn main() {
         println!("{str}");
     }
     for x in 1..=100 { println!("Found Fibonacci number {x}: {}", gen_nth_fibonacci(x)) }
+    print_12_days_of_christmas();
 }
