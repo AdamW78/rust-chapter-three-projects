@@ -43,6 +43,21 @@ fn conv_temp(t: &Temp) -> Temp {
     Temp{ temp, tc }
 }
 
+fn gen_nth_fibonacci(n: u8) -> i128 {
+    let mut n = n;
+    if n == 1 || n == 2 { return 1 }
+    let mut n_minus_oneth_fib: i128 = 1; n -= 1;
+    let mut nth_fib: i128 = 1; n -= 1;
+    while n > 0 {
+        let tmp = n_minus_oneth_fib;
+        n_minus_oneth_fib = nth_fib;
+        nth_fib = nth_fib + tmp;
+        n -= 1;
+    }
+    nth_fib
+
+}
+
 fn main() {
     for t in TS {
         let c = conv_temp(&t);
@@ -50,4 +65,5 @@ fn main() {
         if t.tc == TC::K { str = str.replacen("°", "", 1); }
         println!("{str}");
     }
+    for x in 1..=100 { println!("Found Fibonacci number {x}: {}", gen_nth_fibonacci(x)) }
 }
